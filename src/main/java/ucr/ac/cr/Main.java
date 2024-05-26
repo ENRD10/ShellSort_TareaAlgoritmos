@@ -50,7 +50,7 @@ public class Main {
         }
     }
 
-    // Método para imprimir arrays de enteros
+    
     public static void printArray(int[] array) {
         for (int i : array) {
             System.out.print(i + " ");
@@ -58,7 +58,7 @@ public class Main {
         System.out.println();
     }
 
-    // Método para imprimir listas genéricas
+    
     public static <T> void printList(List<T> lista) {
         for (T element : lista) {
             System.out.print(element + " ");
