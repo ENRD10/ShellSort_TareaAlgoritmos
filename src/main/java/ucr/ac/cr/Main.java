@@ -1,12 +1,30 @@
-package ucr.ac.cr;
-
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
-public class ShellSort<T> {
+public class Main {
+// Implementación de Shell Sort para arrays de enteros
+    public static void shellSortArray(int[] array) {
+        int n = array.length;
 
-    // Método para ordenar una lista utilizando el algoritmo Shell Sort
-    public void shellSort(List<T> lista, Comparator<T> comparator) {
+        // Comenzamos con un gap grande y lo reducimos
+        for (int gap = n / 2; gap > 0; gap /= 2) {
+            // Realizamos un ordenamiento por inserción con el gap actual
+            for (int i = gap; i < n; i++) {
+                int temp = array[i];
+                int j;
+                
+                // dSe desplaza los elementos ordenados en el subarray actual
+                for (j = i; j >= gap && array[j - gap] > temp; j -= gap) {
+                    array[j] = array[j - gap];
+                }
+                array[j] = temp;
+            }
+        }
+    }
+
+    // Implementación de Shell Sort para listas genéricas con un comparador
+    public static <T> void shellSortList(List<T> lista, Comparator<T> comparator) {
         int salto, i; // Variables para controlar el tamaño de los saltos y las iteraciones
         T aux; //para intercambiar elementos
         boolean cambios; // Variable para controlar si se realizan cambios en la lista
@@ -22,7 +40,7 @@ public class ShellSort<T> {
                 for (i = salto; i < cont; i++) {
                     // Si el elemento en la posición actual es mayor que el elemento en la posición actual - salto,
                     // se intercambian los elementos y se marca cambios como verdadero
-                    if (comparator.compare(lista.get(i - salto), lista.get(i)) < 0) {
+                    if (comparator.compare(lista.get(i - salto), lista.get(i)) > 0) {
                         aux = lista.get(i); // Almacenar el elemento en la posición actual en la variable auxiliar
                         lista.set(i, lista.get(i - salto)); // Establecer el elemento en la posición actual - salto en la posición actual
                         lista.set(i - salto, aux); // Establecer el elemento almacenado en la variable auxiliar en la posición actual - salto
@@ -31,5 +49,43 @@ public class ShellSort<T> {
                 }
             }
         }
+    }
+
+    // Método para imprimir arrays de enteros
+    public static void printArray(int[] array) {
+        for (int i : array) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+
+    // Método para imprimir listas genéricas
+    public static <T> void printList(List<T> lista) {
+        for (T element : lista) {
+            System.out.print(element + " ");
+        }
+        System.out.println();
+    }
+
+ public static void main(String[] args) {
+        // Ejemplo con array de enteros
+        int[] array = {12, 34, 54, 2, 3};
+        System.out.println("Array original:");
+        printArray(array);
+
+        shellSortArray(array);
+        
+        System.out.println("Array ordenado:");
+        printArray(array);
+
+        // Ejemplo con lista genérica
+        List<Integer> lista = new ArrayList<>(List.of(12, 34, 54, 2, 3));
+        System.out.println("Lista original:");
+        printList(lista);
+
+        shellSortList(lista, Comparator.naturalOrder());
+        
+        System.out.println("Lista ordenada:");
+        printList(lista);
     }
 }
