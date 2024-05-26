@@ -25,20 +25,19 @@ public class Main {
 
     // Implementación de Shell Sort para listas genéricas con un comparador
     public static <T> void shellSortList(List<T> lista, Comparator<T> comparator) {
-        int salto, i; // Variables para controlar el tamaño de los saltos y las iteraciones
-        T aux; //para intercambiar elementos
-        boolean cambios; // Variable para controlar si se realizan cambios en la lista
-        int cont = lista.size(); //longitud
+        int salto, i; //tamaño de los saltos y las iteraciones
+        T aux; // intercambiar elementos
+        boolean cambios; // controlar si se realizan cambios en la lista
+        int cont = lista.size();
 
         // reduce el tamaño de los saltos a la mitad en cada iteración
         for (salto = cont / 2; salto != 0; salto /= 2) {
-            cambios = true; // Inicializar cambios como verdadero al inicio de cada iteración
-            //  mientras haya cambios en la lista
+            cambios = true; 
             while (cambios) {
                 cambios = false; // Inicializar cambios como falso al inicio de cada iteración
                 // Bucle que recorre la lista y realiza comparaciones entre elementos
                 for (i = salto; i < cont; i++) {
-                    // Si el elemento en la posición actual es mayor que el elemento en la posición actual - salto,
+                    // Si el elemento en la posición actual es mayor que el elemento en la posición actual = salto,
                     // se intercambian los elementos y se marca cambios como verdadero
                     if (comparator.compare(lista.get(i - salto), lista.get(i)) > 0) {
                         aux = lista.get(i); // Almacenar el elemento en la posición actual en la variable auxiliar
